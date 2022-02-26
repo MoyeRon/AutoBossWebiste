@@ -7,7 +7,8 @@ import step.StepManager;
 public class Startup {
     public static void main(String[] args) {
         ConfigInit.driverConfigInit("edge");
-        ConfigInit.filterConfigInit();
+        ConfigInit.jobFilterConfigInit();
+        ConfigInit.schoolFilterConfigInit();
         StepManager stepManager = new StepManager();
         stepManager.addStep(new OpenAndLoginStep())
                 .addStep(new JobSelectStep())

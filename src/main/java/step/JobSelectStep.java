@@ -28,6 +28,7 @@ public class JobSelectStep extends Step {
                 .findFirst()
                 .get();
         targetJobItem.click();
+        driver.switchTo().defaultContent();
         return true;
     }
 }

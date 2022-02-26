@@ -1,6 +1,7 @@
 package context;
 
 import filter.FilterEntity;
+import filter.SchoolEntity;
 import org.openqa.selenium.WebDriver;
 
 import java.util.LinkedList;
@@ -10,4 +11,7 @@ public class AutoContext {
     public static WebDriver webDriver = null;
 
     public static List<FilterEntity> filterEntities = new LinkedList<>();
+
+    public static List<SchoolEntity> schoolEntities = new LinkedList<>();
+
 }

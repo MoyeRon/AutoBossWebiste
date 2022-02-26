@@ -19,7 +19,7 @@ public class SetFilterStep extends Step {
             driver.findElement(By.className("recover")).click();
             return true;
         }
-
+        driver.switchTo().defaultContent();
         return super.doStep();
     }
 }

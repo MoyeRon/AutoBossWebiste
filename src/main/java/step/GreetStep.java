@@ -1,6 +1,7 @@
 package step;
 
 
+import filter.GreetFilter;
 import utils.ElementUtils;
 import utils.ListUtils;
 import utils.ThreadUtils;
@@ -40,6 +41,14 @@ public class GreetStep extends Step {
             }
             sb.append("]");
             System.out.println("name:" + ElementUtils.getName(element) + ";wanted:" + ElementUtils.getWanted(element) + ";" + sb);
+            if (GreetFilter.isAllowedSchool(element)) {
+                WebElement greetButton = element.findElement(By.className("btn-greet"));
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", greetButton);
+                ThreadUtils.SafeSleeping(5);
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", greetButton);
+                System.out.println("say hi");
+                ThreadUtils.SafeSleeping(5);
+            }
         });
         return true;
     }
