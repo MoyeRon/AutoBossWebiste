@@ -37,5 +37,16 @@ public class ElementUtils {
         return expectedElement.findElements(By.tagName("span")).get(1).getText().split("·")[1].trim();
     }
 
+    public static void showElementInfo(WebElement element) {
+        List<String> times = ElementUtils.getSchoolTimes(element);
+        List<String> school = ElementUtils.getSchoolNames(element);
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < school.size(); i++) {
+            sb.append(times.get(i)).append(" ").append(school.get(i)).append(";");
+        }
+        sb.append("]");
+        System.out.println("name:" + ElementUtils.getName(element) + ";wanted:" + ElementUtils.getWanted(element) + ";" + sb);
+    }
 
 }

@@ -1,6 +1,7 @@
 package step;
 
 
+import context.AutoContext;
 import filter.GreetFilter;
 import utils.ElementUtils;
 import utils.ListUtils;
@@ -31,25 +32,19 @@ public class GreetStep extends Step {
 
 
         List<WebElement> elements = mainArea.findElements(By.xpath("//*[@id=\"recommend-list\"]/div/ul/li"));
-        elements.forEach(element -> {
-            List<String> times = ElementUtils.getSchoolTimes(element);
-            List<String> school = ElementUtils.getSchoolNames(element);
-            StringBuilder sb = new StringBuilder();
-            sb.append("[");
-            for (int i = 0; i < school.size(); i++) {
-                sb.append(times.get(i)).append(" ").append(school.get(i)).append(";");
-            }
-            sb.append("]");
-            System.out.println("name:" + ElementUtils.getName(element) + ";wanted:" + ElementUtils.getWanted(element) + ";" + sb);
-            if (GreetFilter.isAllowedSchool(element)) {
-                WebElement greetButton = element.findElement(By.className("btn-greet"));
-                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", greetButton);
-                ThreadUtils.SafeSleeping(5);
-                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", greetButton);
-                System.out.println("say hi");
-                ThreadUtils.SafeSleeping(5);
-            }
-        });
+        elements.stream()
+                .filter(GreetFilter::isAllowedSchool)
+                .forEach(element -> {
+                    ElementUtils.showElementInfo(element);
+                    WebElement greetButton = element.findElement(By.className("btn-greet"));
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", greetButton);
+                    ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-200)");
+                    ThreadUtils.SafeSleeping(5);
+                    greetButton.click();
+                    ThreadUtils.SafeSleeping(5);
+                    AutoContext.greets.add(ElementUtils.getName(element));
+                });
+        System.out.println("current job finish");
         return true;
     }
 }

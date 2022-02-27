@@ -14,4 +14,6 @@ public class AutoContext {
 
     public static List<SchoolEntity> schoolEntities = new LinkedList<>();
 
+    public static List<String> greets = new LinkedList<>();
+
 }
