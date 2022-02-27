@@ -4,6 +4,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import context.AutoContext;
 import filter.FilterEntity;
+import filter.MessageEntity;
 import filter.SchoolEntity;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.codec.CharEncoding;
@@ -64,6 +65,19 @@ public class ConfigInit {
         } catch (IOException e) {
             LOGGER.error("read school description error", e);
         }
+    }
 
+    public static void messageConfigInit() {
+        String resourcePath = ConfigInit.class.getClassLoader().getResource("").getPath() + File.separator + "message";
+        File messageFile = FileUtils.getFile(new File(resourcePath), "message.json");
+        try {
+            String message = FileUtils.readFileToString(messageFile, CharEncoding.UTF_8);
+            Type type = new TypeToken<ArrayList<MessageEntity>>() {
+            }.getType();
+            List<MessageEntity> messages = GSON.fromJson(message, type);
+            AutoContext.messages.addAll(messages);
+        } catch (IOException e) {
+            LOGGER.error("read message description error", e);
+        }
     }
 }

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class ElementUtils {
 
-    public static List<String> getSchoolNames(WebElement element) {
+    public static List<String> getSchoolNamesAtRecommendPage(WebElement element) {
         WebElement eduElement = element.findElement(By.className("edu-exp-box"));
         List<WebElement> subEduElements = eduElement.findElements(By.tagName("li"));
         return subEduElements.stream().map(subEduElement -> {
@@ -18,7 +18,7 @@ public class ElementUtils {
         }).collect(Collectors.toList());
     }
 
-    public static List<String> getSchoolTimes(WebElement element) {
+    public static List<String> getSchoolTimesAtRecommendPage(WebElement element) {
         WebElement eduElement = element.findElement(By.className("edu-exp-box"));
         List<WebElement> subEduElements = eduElement.findElements(By.tagName("li"));
         return subEduElements.stream().map(subEduElement -> {
@@ -27,26 +27,30 @@ public class ElementUtils {
         }).collect(Collectors.toList());
     }
 
-    public static String getName(WebElement element) {
+    public static String getNameAtRecommendPage(WebElement element) {
         WebElement nameElement = element.findElement(By.className("name"));
         return nameElement.findElements(By.tagName("span")).get(0).getText();
     }
 
-    public static String getWanted(WebElement element) {
+    public static String getWantedAtRecommendPage(WebElement element) {
         WebElement expectedElement = element.findElement(By.className("expect-box"));
         return expectedElement.findElements(By.tagName("span")).get(1).getText().split("·")[1].trim();
     }
 
-    public static void showElementInfo(WebElement element) {
-        List<String> times = ElementUtils.getSchoolTimes(element);
-        List<String> school = ElementUtils.getSchoolNames(element);
+    public static void showElementInfoAtRecommendPage(WebElement element) {
+        List<String> times = ElementUtils.getSchoolTimesAtRecommendPage(element);
+        List<String> school = ElementUtils.getSchoolNamesAtRecommendPage(element);
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for (int i = 0; i < school.size(); i++) {
             sb.append(times.get(i)).append(" ").append(school.get(i)).append(";");
         }
         sb.append("]");
-        System.out.println("name:" + ElementUtils.getName(element) + ";wanted:" + ElementUtils.getWanted(element) + ";" + sb);
+        System.out.println("name:" + ElementUtils.getNameAtRecommendPage(element) + ";wanted:" + ElementUtils.getWantedAtRecommendPage(element) + ";" + sb);
+    }
+
+    public static String getNameAtCommunicationPage(WebElement element) {
+        return "";
     }
 
 }

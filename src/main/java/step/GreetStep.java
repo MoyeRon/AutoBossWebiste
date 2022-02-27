@@ -35,14 +35,14 @@ public class GreetStep extends Step {
         elements.stream()
                 .filter(GreetFilter::isAllowedSchool)
                 .forEach(element -> {
-                    ElementUtils.showElementInfo(element);
+                    ElementUtils.showElementInfoAtRecommendPage(element);
                     WebElement greetButton = element.findElement(By.className("btn-greet"));
                     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", greetButton);
                     ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-200)");
                     ThreadUtils.SafeSleeping(5);
                     greetButton.click();
                     ThreadUtils.SafeSleeping(5);
-                    AutoContext.greets.add(ElementUtils.getName(element));
+                    AutoContext.greetNames.add(ElementUtils.getNameAtRecommendPage(element));
                 });
         System.out.println("current job finish");
         return true;
